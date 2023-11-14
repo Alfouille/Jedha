@@ -1,0 +1,28 @@
+import subprocess
+import re
+import time
+
+# Exécutez le script pour générer l'équation
+subprocess.run(["./2fast4you.sh"], stdout=subprocess.PIPE)
+
+# Lisez le contenu du fichier equation.txt
+equation_content = subprocess.check_output(["cat", "equation.txt"]).decode("utf-8").strip()
+
+# Utilisez une expression régulière pour extraire les valeurs numériques
+match = re.match(r"(\d+)\s*\*\s*(\d+)\s*\+\s*(\d+)\s*=", equation_content)
+
+if match:
+    # Récupérez les valeurs numériques
+    first_value, second_value, third_value = map(int, match.groups())
+
+    # Résolvez l'équation
+    result = first_value * second_value + third_value
+
+    # Exécutez le script avec la réponse
+    subprocess.run(["./2fast4you.sh", str(result)])
+
+else:
+    print("Impossible d'extraire les valeurs numériques de l'équation.")
+
+
+python3 script_python.py
